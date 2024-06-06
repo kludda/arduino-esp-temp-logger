@@ -210,9 +210,9 @@ const char temp_html[] PROGMEM = R"rawliteral(
     var myObj = JSON.parse(event.data);
 
     if (document.getElementById(myObj.id)) {
-      document.getElementById(myObj.id).innerHTML = "<p>" + myObj.id + "<br><h2>" + myObj.value + "</p>";
+      document.getElementById(myObj.id).innerHTML = "<p>" + myObj.id + "<br><h2>" + myObj.value + " &deg;C</p>";
     } else {
-      document.getElementById('log').innerHTML += "<div class=\"card\" id=\"" + myObj.id + "\"><p>" + myObj.id + "<br><h2>" + myObj.value + " &deg;C</p></div>";
+      document.getElementById('log').innerHTML += "<div class=\"card\" id=\"" + myObj.id + "\"></div>";
     }
   }
   function onLoad(event) {
