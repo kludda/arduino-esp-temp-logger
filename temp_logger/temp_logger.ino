@@ -4,12 +4,18 @@ ESP8266 Arduino DS18B20 temp logger
 Code for the webserver and websocket was found here
 https://randomnerdtutorials.com/esp8266-nodemcu-websocket-server-arduino/
 
+Other useful resources:
+https://www.analog.com/media/en/technical-documentation/data-sheets/ds18b20.pdf
+https://arduino-esp8266.readthedocs.io/en/latest/index.html
+https://www.pjrc.com/teensy/td_libs_OneWire.html
+https://github.com/milesburton/Arduino-Temperature-Control-Library
+
+
 
 */
 
 // Import required libraries
 
-//https://arduino-esp8266.readthedocs.io/en/latest/index.html
 
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
@@ -125,7 +131,7 @@ String processor(const String& var)
 
 
 
-
+/*
 void on_mqtt_prop1_set (String *t, String *p) {
   Serial.print(F("prop1: "));
   Serial.print(t->c_str());
@@ -139,7 +145,7 @@ void on_mqtt_prop2_set (String *t, String *p) {
   Serial.print(F(" <- "));
   Serial.println(p->c_str());
 }
-
+*/
 /*
 t_subscribe subs[] = {
 //t_subscribe_arr subs = {
@@ -177,9 +183,10 @@ void setup() {
 */
   // setup wifi 
   setup_mqtt(); //subs);
+/*
   mqtt_subscribe("node/prop1/set",  on_mqtt_prop1_set);
   mqtt_subscribe("node/prop2/set",  on_mqtt_prop2_set);
-  
+*/
 
   //mqtt_client.setCallback(mqtt_on_message);
 
