@@ -48,7 +48,7 @@ AsyncWebSocket ws("/ws");
 
 unsigned long lastsendtime = 0;
 
-
+  
 
 
 
@@ -95,7 +95,7 @@ void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
   }
 }
 
-
+/*
 void mqtt_on_message(char* topic, byte* payload, unsigned int length) {
   String p = "";
   String t = String(topic);
@@ -106,18 +106,13 @@ void mqtt_on_message(char* topic, byte* payload, unsigned int length) {
 
   t = mqtt_trim(t);
 
-/*
-  if (t == "/fan/dutycycle/set") {
-    Serial.println("got matching dc set");
-    set_dc(p.toInt());
-  } 
-*/
+
   p = String();
   t = String();
 
 
 }
-
+*/
 
 String processor(const String& var)
 {
@@ -130,6 +125,36 @@ String processor(const String& var)
 
 
 
+
+void on_mqtt_prop1_set (String *t, String *p) {
+  Serial.print(F("prop1: "));
+  Serial.print(t->c_str());
+  Serial.print(F(" <- "));
+  Serial.println(p->c_str());
+}
+
+void on_mqtt_prop2_set (String *t, String *p) {
+  Serial.print(F("prop2: "));
+  Serial.print(t->c_str());
+  Serial.print(F(" <- "));
+  Serial.println(p->c_str());
+}
+
+/*
+t_subscribe subs[] = {
+//t_subscribe_arr subs = {
+  {
+    .topic = "node/prop1/set",
+    .callback = on_mqtt_prop1_set,
+  
+  },
+  {
+    .topic = "node/prop2/set",
+    .callback = on_mqtt_prop2_set,
+  
+  }
+};
+*/
 
 void setup() {
 //  randomSeed(micros());
@@ -145,9 +170,18 @@ void setup() {
   // setup wifi
   setup_wifi();
 
-  // setup wifi
-  setup_mqtt();
-  mqtt_client.setCallback(mqtt_on_message);
+
+/*
+  Serial.print("subs len.");
+  Serial.println(sizeof(subs) / sizeof(t_subscribe));
+*/
+  // setup wifi 
+  setup_mqtt(); //subs);
+  mqtt_subscribe("node/prop1/set",  on_mqtt_prop1_set);
+  mqtt_subscribe("node/prop2/set",  on_mqtt_prop2_set);
+  
+
+  //mqtt_client.setCallback(mqtt_on_message);
 
 
   // setup websocket
