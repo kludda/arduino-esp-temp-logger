@@ -380,11 +380,13 @@ void setup() {
   sensors.begin(); // IC Default 9 bit. If you have troubles consider upping it 12. Ups the delay giving the IC more time to process the temperature measurement
 delay(100);
   // locate devices on the bus
+/*
   Serial.print("Locating devices...");
   Serial.print("Found ");
   num_sensors = sensors.getDeviceCount();
   Serial.print(num_sensors, DEC);
   Serial.println(" devices.");
+*/
 
 }
 
@@ -448,7 +450,7 @@ void loop() {
       }
     }
 
-    mqtt_publish("device/freeheap", String(ESP.getFreeHeap()));
+    mqtt_publish("mcu/freeheap", String(ESP.getFreeHeap()));
 /*
     Serial.println("RPM: " + String(rpm));
     ws.textAll("{\"rpm\":" + String(rpm) + ", \"dutycycle\":" + String(dutycycle) + "}");
