@@ -126,6 +126,8 @@ String processor(const String& var)
     return header_html;
   else if (var == "FOOTER")
     return footer_html;
+  else if (var == "UNIQUEID")
+    return String(unique_id_str);
   return String();
 }
 
@@ -446,6 +448,7 @@ void loop() {
       }
     }
 
+    mqtt_publish("device/freeheap", String(ESP.getFreeHeap()));
 /*
     Serial.println("RPM: " + String(rpm));
     ws.textAll("{\"rpm\":" + String(rpm) + ", \"dutycycle\":" + String(dutycycle) + "}");
