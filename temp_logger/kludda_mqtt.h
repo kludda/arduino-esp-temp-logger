@@ -86,7 +86,9 @@ String get_mqtt_status_str() {
 void mqtt_publish(String t, String p) {
   t = String(get_conf("mqtt_root")->data) + "/" + String(unique_id_str) + "/" + t;
   mqtt_client.publish(t.c_str(), p.c_str());
-  Serial.println(p + " -> " + t);
+  Serial.print(p);
+  Serial.print(" -> ");
+  Serial.println(t);
 }
 
 
