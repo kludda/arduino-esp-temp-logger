@@ -206,14 +206,25 @@ const char temp_html[] PROGMEM = R"rawliteral(
     resetvalues();
 //    setTimeout(initWebSocket, 2000);
   }
+  
+  function writecard(id, value) {
+	var timeoutid = setTimeout(writecard(myObj.id, "---"), 3000);
+    document.getElementById(myObj.id).innerHTML = "<div timerid=" + timeoutid + "<p>" + myObj.id + "<br><h2>" + myObj.value + " &deg;C</p>";
+  }
+  
   function onMessage(event) {
     console.log(event.data);
     var myObj = JSON.parse(event.data);
 
     if (document.getElementById(myObj.id)) {
-      document.getElementById(myObj.id).innerHTML = "<p>" + myObj.id + "<br><h2>" + myObj.value + " &deg;C</p>";
+		var timerid = document.getElementById(myObj.id).timerid;
+		clearTimeout(timerid);
+//		var timeoutid = setTimeout(writecard(myObj.id, "---"), 3000);
+		writecard(myObj.id, myObj.value)
+//      document.getElementById(myObj.id).innerHTML = "<div timerid=" + timeoutid + "<p>" + myObj.id + "<br><h2>" + myObj.value + " &deg;C</p>";
     } else {
       document.getElementById('log').innerHTML += "<div class=\"card\" id=\"" + myObj.id + "\"></div>";
+	  writecard(myObj.id, myObj.value)
     }
   }
   function onLoad(event) {
