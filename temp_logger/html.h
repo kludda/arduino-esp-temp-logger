@@ -34,6 +34,14 @@ p {
  padding:10px;
  margin-top:20px;
 }
+.name {
+ font-size: 18px;
+ line-height: 28px;
+}
+.value {
+ font-size: 24px;
+ font-weight: bold;
+}
 .status {
  font-size: 12px;
 }
@@ -151,7 +159,10 @@ const char footer_html[] PROGMEM = R"rawliteral(
             div.innerHTML += s.text + "<br>";
           }
         }
-    });
+      })
+      .catch(error => {
+        document.getElementById("status").innerHTML = "Disconnected.";
+      });
   };
   window.setInterval(f, 5000);
   f();
@@ -212,7 +223,7 @@ const char temp_html[] PROGMEM = R"rawliteral(
 	if (e) {
 	  	clearTimeout(e.getAttribute('timerid'));
 	}
-    e.innerHTML = "<p>" + id + "<br><h2>" + value + " &deg;C</p>";
+    e.innerHTML = "<span class=\"name\">" + id + "</span><br><span class=\"value\">" + value + " &deg;C</span>";
 	e.setAttribute('timerid', setTimeout(writecard, 3000, id, "--"));
   }
   
