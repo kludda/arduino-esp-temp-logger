@@ -446,7 +446,7 @@ void loop() {
         ws.textAll("{\"id\":\"" + t + "\",\"value\":\"" + p + "\"}");
         t += "/temperature";
         mqtt_publish(t, p);
-        delay(50);
+        delay(10);
       }
     }
 
