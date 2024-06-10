@@ -208,8 +208,12 @@ const char temp_html[] PROGMEM = R"rawliteral(
   }
   
   function writecard(id, value) {
-	var timeoutid = setTimeout(writecard(myObj.id, "---"), 3000);
-    document.getElementById(myObj.id).innerHTML = "<div timerid=" + timeoutid + "<p>" + myObj.id + "<br><h2>" + myObj.value + " &deg;C</p>";
+	let e = document.getElementById(id);
+	if (e) {
+	  	clearTimeout(e.getAttribute('timerid'));
+	}
+    e.innerHTML = "<p>" + id + "<br><h2>" + value + " &deg;C</p>";
+	e.setAttribute('timerid', setTimeout(writecard, 3000, id, "--"));
   }
   
   function onMessage(event) {
@@ -217,8 +221,8 @@ const char temp_html[] PROGMEM = R"rawliteral(
     var myObj = JSON.parse(event.data);
 
     if (document.getElementById(myObj.id)) {
-		var timerid = document.getElementById(myObj.id).timerid;
-		clearTimeout(timerid);
+//		var timerid = document.getElementById(myObj.id).timerid;
+//		clearTimeout(timerid);
 //		var timeoutid = setTimeout(writecard(myObj.id, "---"), 3000);
 		writecard(myObj.id, myObj.value)
 //      document.getElementById(myObj.id).innerHTML = "<div timerid=" + timeoutid + "<p>" + myObj.id + "<br><h2>" + myObj.value + " &deg;C</p>";
